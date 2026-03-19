@@ -1,4 +1,4 @@
-package interfaz;
+package view;
 
 import java.awt.EventQueue;
 
