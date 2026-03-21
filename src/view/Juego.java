@@ -122,7 +122,6 @@ public class Juego extends JFrame {
 		txtP.setForeground(Color.WHITE);
 		txtP.setFont(new Font("Arial", Font.BOLD, 30));
 		txtP.setHorizontalAlignment(SwingConstants.CENTER);
-		txtP.setText("P");
 		txtP.setSize(new Dimension(8, 8));
 		txtP.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		txtP.setEnabled(false);
@@ -206,7 +205,6 @@ public class Juego extends JFrame {
 		txtC.setBackground(new Color(18, 18, 19));
 		txtC.setForeground(SystemColor.textText);
 		txtC.setFont(new Font("Arial", Font.BOLD, 30));
-		txtC.setText("C");
 		txtC.setHorizontalAlignment(SwingConstants.CENTER);
 		txtC.setSize(new Dimension(8, 8));
 		txtC.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
@@ -509,6 +507,7 @@ public class Juego extends JFrame {
 		lblTextBox.setBounds(10, 59, 168, 19);
 		contentPane.add(lblTextBox);
 		
+		//TODO este lbl va a mostrar de forma oculta la palabra que resolvio el model de juego
 		lblNewLabel = new JLabel("RESULTADO");
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
