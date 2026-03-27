@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 import utils.DifficultEnum;
 import utils.LanguageEnum;
 
-public class Controlador {
+public class MenuController {
 	private model.Setting modelo;
-	private view.Interfaz vista;
+	private view.MenuView vista;
 
-	public Controlador(model.Setting modelo, view.Interfaz vista) {
+	public MenuController(model.Setting modelo, view.MenuView vista) {
 		
 	    this.modelo = modelo;
 	    this.vista = vista;

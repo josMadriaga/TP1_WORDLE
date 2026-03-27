@@ -12,7 +12,7 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Interfaz {
+public class MenuView {
 
 	private JFrame frame;
 	private JButton btnStart;
@@ -37,9 +37,9 @@ public class Interfaz {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interfaz window = new Interfaz();
+					MenuView window = new MenuView();
 					model.Setting modelo = new model.Setting();
-	                controller.Controlador controlador = new controller.Controlador(modelo, window);
+	                controller.MenuController menuController = new controller.MenuController(modelo, window);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +51,7 @@ public class Interfaz {
 	/**
 	 * Create the application.
 	 */
-	public Interfaz() {
+	public MenuView() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
