@@ -9,8 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Interfaz {
+public class MenuView {
 
 	private JFrame frame;
 	private JButton btnStart;
@@ -35,7 +37,9 @@ public class Interfaz {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interfaz window = new Interfaz();
+					MenuView window = new MenuView();
+					model.Setting modelo = new model.Setting();
+	                controller.MenuController menuController = new controller.MenuController(modelo, window);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +51,7 @@ public class Interfaz {
 	/**
 	 * Create the application.
 	 */
-	public Interfaz() {
+	public MenuView() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
@@ -69,18 +73,21 @@ public class Interfaz {
 		btnStart = new JButton("Start");
 		btnStart.setBounds(172, 80, 89, 23);
 		frame.getContentPane().add(btnStart);
-		
 		rdbtnDificil = new JRadioButton("Difícil");
+		rdbtnDificil.setActionCommand("HARD");
+
 		buttonGroup.add(rdbtnDificil);
 		rdbtnDificil.setBounds(20, 210, 109, 23);
 		frame.getContentPane().add(rdbtnDificil);
 		
 		rdbtnNormal = new JRadioButton("Normal");
+		rdbtnNormal.setActionCommand("NORMAL");
 		buttonGroup.add(rdbtnNormal);
 		rdbtnNormal.setBounds(20, 184, 109, 23);
 		frame.getContentPane().add(rdbtnNormal);
 		
 		rdbtnFacil = new JRadioButton("Fácil");
+		rdbtnFacil.setActionCommand("EASY");
 		buttonGroup.add(rdbtnFacil);
 		rdbtnFacil.setBounds(20, 158, 109, 23);
 		frame.getContentPane().add(rdbtnFacil);
@@ -94,14 +101,17 @@ public class Interfaz {
 		frame.getContentPane().add(labelLenguaje);
 		
 		rdbtnEspanol = new JRadioButton("Español");
+		rdbtnEspanol.setActionCommand("SPANISH");
 		buttonGroup_1.add(rdbtnEspanol);
 		rdbtnEspanol.setBounds(334, 158, 109, 23);
 		frame.getContentPane().add(rdbtnEspanol);
 		
 		rdbtnIngles = new JRadioButton("Ingles");
+		rdbtnIngles.setActionCommand("ENGLISH");
 		buttonGroup_1.add(rdbtnIngles);
 		rdbtnIngles.setBounds(334, 184, 109, 23);
 		frame.getContentPane().add(rdbtnIngles);
+		
 	}
 	public JFrame getFrame() {
 		return frame;
@@ -124,5 +134,18 @@ public class Interfaz {
 	public JRadioButton getRdbtnIngles() {
 		return rdbtnIngles;
 	}
+	
+	public void addDificultadListener(ActionListener listener) {
+		
+	    rdbtnFacil.addActionListener(listener);
+	    rdbtnNormal.addActionListener(listener);
+	    rdbtnDificil.addActionListener(listener);
+	}
+	
+	public void addLanguageListener(ActionListener listener) {
+		rdbtnEspanol.addActionListener(listener);
+		rdbtnIngles.addActionListener(listener);
+	}
+	
 
 }
