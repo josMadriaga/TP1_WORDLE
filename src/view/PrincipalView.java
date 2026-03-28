@@ -1,12 +1,12 @@
 package view;
 
 import javax.swing.*;
+
+import utils.ViewEnum;
+
 import java.awt.*;
 
 public class PrincipalView extends JFrame {
-    public static final String PANTALLA_MENU = "MENU";
-    public static final String PANTALLA_JUEGO = "JUEGO";
-    public static final String PANTALLA_GAMEOVER = "GAMEOVER";
 
     private CardLayout cardLayout;
     private JPanel contenedorPrincipal;
@@ -18,7 +18,7 @@ public class PrincipalView extends JFrame {
     public PrincipalView() {
         setTitle("Wordle UNGS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(600, 550);
         setLocationRelativeTo(null);
 
         cardLayout = new CardLayout();
@@ -28,13 +28,11 @@ public class PrincipalView extends JFrame {
         panelJuego = new JuegoView();
         panelGameOver = new GameOverView();
 
-        contenedorPrincipal.add(panelMenu, PANTALLA_MENU);
-        contenedorPrincipal.add(panelJuego, PANTALLA_JUEGO);
-        contenedorPrincipal.add(panelGameOver, PANTALLA_GAMEOVER);
+        contenedorPrincipal.add(panelMenu, ViewEnum.MENU.toString());
+        contenedorPrincipal.add(panelJuego, ViewEnum.JUEGO.toString());
+        contenedorPrincipal.add(panelGameOver, ViewEnum.GAMEOVER.toString());
 
         getContentPane().add(contenedorPrincipal, BorderLayout.CENTER);
-        
-        cardLayout.show(contenedorPrincipal, PANTALLA_MENU);
         
         revalidate();
         repaint();
