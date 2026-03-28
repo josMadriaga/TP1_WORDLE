@@ -1,63 +1,34 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.ButtonGroup;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuView {
-
-	private JFrame frame;
+public class MenuView extends JPanel {
 	private JButton btnStart;
-	
+
 	private JLabel labelDificultad;
 	private JLabel labelLenguaje;
-	
+
 	private JRadioButton rdbtnDificil;
 	private JRadioButton rdbtnNormal;
 	private JRadioButton rdbtnFacil;
 	private JRadioButton rdbtnEspanol;
 	private JRadioButton rdbtnIngles;
-	
+
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-	
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenuView window = new MenuView();
-					model.Setting modelo = new model.Setting();
-	                controller.MenuController menuController = new controller.MenuController(modelo, window);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 */
 	public MenuView() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		initialize();
 	}
 
@@ -65,87 +36,86 @@ public class MenuView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
+		setBounds(getBounds());
+		setLayout(null);
+
 		btnStart = new JButton("Start");
-		btnStart.setBounds(172, 80, 89, 23);
-		frame.getContentPane().add(btnStart);
+		btnStart.setBounds(189, 165, 55, 21);
+		add(btnStart);
 		rdbtnDificil = new JRadioButton("Difícil");
 		rdbtnDificil.setActionCommand("HARD");
 
 		buttonGroup.add(rdbtnDificil);
-		rdbtnDificil.setBounds(20, 210, 109, 23);
-		frame.getContentPane().add(rdbtnDificil);
-		
+		rdbtnDificil.setBounds(355, 116, 49, 21);
+		add(rdbtnDificil);
+
 		rdbtnNormal = new JRadioButton("Normal");
 		rdbtnNormal.setActionCommand("NORMAL");
 		buttonGroup.add(rdbtnNormal);
-		rdbtnNormal.setBounds(20, 184, 109, 23);
-		frame.getContentPane().add(rdbtnNormal);
-		
+		rdbtnNormal.setBounds(355, 93, 59, 21);
+		add(rdbtnNormal);
+
 		rdbtnFacil = new JRadioButton("Fácil");
 		rdbtnFacil.setActionCommand("EASY");
 		buttonGroup.add(rdbtnFacil);
-		rdbtnFacil.setBounds(20, 158, 109, 23);
-		frame.getContentPane().add(rdbtnFacil);
-		
+		rdbtnFacil.setBounds(355, 70, 47, 21);
+		add(rdbtnFacil);
+
 		labelDificultad = new JLabel("Elegir Dificultad:");
-		labelDificultad.setBounds(10, 139, 89, 14);
-		frame.getContentPane().add(labelDificultad);
-		
+		labelDificultad.setBounds(275, 56, 74, 13);
+		add(labelDificultad);
+
 		labelLenguaje = new JLabel("Elegir Lenguaje:");
-		labelLenguaje.setBounds(330, 139, 90, 14);
-		frame.getContentPane().add(labelLenguaje);
-		
+		labelLenguaje.setBounds(10, 56, 74, 13);
+		add(labelLenguaje);
+
 		rdbtnEspanol = new JRadioButton("Español");
 		rdbtnEspanol.setActionCommand("SPANISH");
 		buttonGroup_1.add(rdbtnEspanol);
-		rdbtnEspanol.setBounds(334, 158, 109, 23);
-		frame.getContentPane().add(rdbtnEspanol);
-		
+		rdbtnEspanol.setBounds(89, 70, 61, 21);
+		add(rdbtnEspanol);
+
 		rdbtnIngles = new JRadioButton("Ingles");
 		rdbtnIngles.setActionCommand("ENGLISH");
 		buttonGroup_1.add(rdbtnIngles);
-		rdbtnIngles.setBounds(334, 184, 109, 23);
-		frame.getContentPane().add(rdbtnIngles);
-		
+		rdbtnIngles.setBounds(89, 93, 53, 21);
+		add(rdbtnIngles);
 	}
-	public JFrame getFrame() {
-		return frame;
-	}
+
 	public JButton getBtnStart() {
 		return btnStart;
 	}
+
 	public JRadioButton getRdbtnDificil() {
 		return rdbtnDificil;
 	}
+
 	public JRadioButton getRdbtnNormal() {
 		return rdbtnNormal;
 	}
+
 	public JRadioButton getRdbtnFacil() {
 		return rdbtnFacil;
 	}
+
 	public JRadioButton getRdbtnEspanol() {
 		return rdbtnEspanol;
 	}
+
 	public JRadioButton getRdbtnIngles() {
 		return rdbtnIngles;
 	}
-	
+
 	public void addDificultadListener(ActionListener listener) {
-		
-	    rdbtnFacil.addActionListener(listener);
-	    rdbtnNormal.addActionListener(listener);
-	    rdbtnDificil.addActionListener(listener);
+
+		rdbtnFacil.addActionListener(listener);
+		rdbtnNormal.addActionListener(listener);
+		rdbtnDificil.addActionListener(listener);
 	}
-	
+
 	public void addLanguageListener(ActionListener listener) {
 		rdbtnEspanol.addActionListener(listener);
 		rdbtnIngles.addActionListener(listener);
 	}
-	
 
 }
