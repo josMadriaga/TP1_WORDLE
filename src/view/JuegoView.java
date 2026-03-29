@@ -105,6 +105,18 @@ public class JuegoView extends JPanel {
 			}
 		});
 	}
+	public void limpiarTablero() {
+	    for (int f = 0; f < 6; f++) {
+	        for (int c = 0; c < 5; c++) {
+	            if (celdas[f][c] != null) {
+	                celdas[f][c].setText("");
+	                celdas[f][c].setBackground(new Color(18, 18, 20)); 
+	            }
+	        }
+	    }
+	    textField.setText("");
+	    textField.requestFocus();
+	   }
 
 	public void pintarCeldas(CeldaCustom[] celdas, String[] colores) {
 		for (int i = 0; i < celdas.length; i++) {
