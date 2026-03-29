@@ -27,7 +27,7 @@ public class GameOverView extends JPanel {
 		lblNewLabel_1.setBounds(73, 90, 300, 30);
 		add(lblNewLabel_1);
 		
-		btnNewButton = new ButtonCustom("Reiniciar");	
+		btnNewButton = new ButtonCustom("Reintentar");	
 		btnNewButton.setBounds(40, 160, 140, 40);
 		add(btnNewButton);
 		

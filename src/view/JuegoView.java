@@ -75,6 +75,15 @@ public class JuegoView extends JPanel {
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setBounds(226, 55, 189, 17);
 		add(lblNewLabel);
-
+	}
+	public void limpiarTablero() {
+	    for (int i = 0; i < celdas.length; i++) {
+	        if (celdas[i] != null) {
+	            celdas[i].setText(""); 
+	            celdas[i].setBackground(new Color(18, 18, 20)); 
+	        }
+	    }
+	    textField.setText("");
+	    textField.requestFocus();
 	}
 }
