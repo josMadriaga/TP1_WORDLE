@@ -32,6 +32,7 @@ public class MenuView extends JPanel {
 		initialize();
 	}
 
+	// TODO estaría copado que el menu tenga estilos similes a juego y gameover
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -42,9 +43,11 @@ public class MenuView extends JPanel {
 		btnStart = new JButton("Start");
 		btnStart.setBounds(189, 165, 55, 21);
 		add(btnStart);
+		// TODO los radio buttom estos podrían ser un grupo de radio buttoms así es más
+		// facil detectar cual se presiono
 		rdbtnDificil = new JRadioButton("Difícil");
 		rdbtnDificil.setActionCommand("HARD");
-
+		
 		buttonGroup.add(rdbtnDificil);
 		rdbtnDificil.setBounds(355, 116, 49, 21);
 		add(rdbtnDificil);
@@ -54,7 +57,7 @@ public class MenuView extends JPanel {
 		buttonGroup.add(rdbtnNormal);
 		rdbtnNormal.setBounds(355, 93, 59, 21);
 		add(rdbtnNormal);
-
+		//TODO hay que setearlo por default
 		rdbtnFacil = new JRadioButton("Fácil");
 		rdbtnFacil.setActionCommand("EASY");
 		buttonGroup.add(rdbtnFacil);
@@ -68,7 +71,7 @@ public class MenuView extends JPanel {
 		labelLenguaje = new JLabel("Elegir Lenguaje:");
 		labelLenguaje.setBounds(10, 56, 74, 13);
 		add(labelLenguaje);
-
+		//TODO setear por default
 		rdbtnEspanol = new JRadioButton("Español");
 		rdbtnEspanol.setActionCommand("SPANISH");
 		buttonGroup_1.add(rdbtnEspanol);

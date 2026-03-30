@@ -19,7 +19,7 @@ public class MenuController {
 	    this.vista.addLanguageListener(new LanguageListener());
 	}
 
-
+//TODO hay que implementar esto por Observers, revisar ejemplos actuales
 	public class DificultadListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
