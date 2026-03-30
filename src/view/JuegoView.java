@@ -83,9 +83,9 @@ public class JuegoView extends JPanel {
 		add(lblCantIntentos);
 
 		lblResult = new JLabel("");
-		lblResult.setFont(new Font("SansSerif", Font.BOLD, 18));
+		lblResult.setFont(new Font("SansSerif", Font.BOLD, 25));
 		lblResult.setForeground(new Color(255, 255, 255));
-		lblResult.setBounds(246, 59, 189, 17);
+		lblResult.setBounds(246, 10, 250, 66);
 		add(lblResult);
 
 		((AbstractDocument) textField.getDocument()).setDocumentFilter(new DocumentFilter() {
