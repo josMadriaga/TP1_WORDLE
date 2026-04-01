@@ -5,15 +5,17 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class CeldaCustom extends JLabel {
-	private Color backgroundColor = new Color(45, 50, 60);
+
+	private Color COLOR_INICIAL = new Color(45, 50, 60);
+	private Color backgroundColor = COLOR_INICIAL;
 
 	public CeldaCustom() {
-	        setOpaque(false);
-	        setHorizontalAlignment(SwingConstants.CENTER);
-	        setForeground(Color.WHITE);
-	        setFont(new Font("SansSerif", Font.BOLD, 24));
-	        setPreferredSize(new Dimension(60, 60));
-	    }
+		setOpaque(false);
+		setHorizontalAlignment(SwingConstants.CENTER);
+		setForeground(Color.WHITE);
+		setFont(new Font("SansSerif", Font.BOLD, 24));
+		setPreferredSize(new Dimension(60, 60));
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -33,6 +35,12 @@ public class CeldaCustom extends JLabel {
 
 	public void setResultado(Color nuevoColor) {
 		this.backgroundColor = nuevoColor;
+		repaint();
+	}
+
+	public void reset() {
+		this.setText("");
+		this.backgroundColor = COLOR_INICIAL;
 		repaint();
 	}
 }

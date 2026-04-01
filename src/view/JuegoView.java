@@ -7,6 +7,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.util.Iterator;
@@ -41,8 +42,8 @@ public class JuegoView extends JPanel {
 		textField.setBounds(168, 450, 180, 34);
 		add(textField);
 		textField.setColumns(10);
-		
-		lblError = new JLabel(""); 
+
+		lblError = new JLabel("");
 		lblError.setForeground(new Color(255, 100, 100));
 		lblError.setFont(new Font("SansSerif", Font.BOLD, 14));
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,9 +83,9 @@ public class JuegoView extends JPanel {
 		add(lblCantIntentos);
 
 		lblResult = new JLabel("");
-		lblResult.setFont(new Font("SansSerif", Font.BOLD, 18));
+		lblResult.setFont(new Font("SansSerif", Font.BOLD, 25));
 		lblResult.setForeground(new Color(255, 255, 255));
-		lblResult.setBounds(246, 59, 189, 17);
+		lblResult.setBounds(246, 10, 250, 66);
 		add(lblResult);
 
 		((AbstractDocument) textField.getDocument()).setDocumentFilter(new DocumentFilter() {
@@ -105,18 +106,20 @@ public class JuegoView extends JPanel {
 			}
 		});
 	}
+
 	public void limpiarTablero() {
-	    for (int f = 0; f < 6; f++) {
-	        for (int c = 0; c < 5; c++) {
-	            if (celdas[f][c] != null) {
-	                celdas[f][c].setText("");
-	                celdas[f][c].setBackground(new Color(18, 18, 20)); 
-	            }
-	        }
-	    }
-	    textField.setText("");
-	    textField.requestFocus();
-	   }
+		textField.setText("");
+		textField.setEnabled(true);
+		lblError.setVisible(false);
+		for (int f = 0; f < 6; f++) {
+			for (int c = 0; c < 5; c++) {
+				CeldaCustom celda = celdas[f][c];
+				celda.reset();
+			}
+		}
+		this.revalidate();
+		this.repaint();
+	}
 
 	public void pintarCeldas(CeldaCustom[] celdas, String[] colores) {
 		for (int i = 0; i < celdas.length; i++) {
@@ -124,7 +127,7 @@ public class JuegoView extends JPanel {
 			celdas[i].setResultado(color);
 		}
 	}
-	
+
 	public void escribirCeldas(CeldaCustom[] celdas) {
 		String[] arrTextField = getTextField().getText().split("");
 		for (int i = 0; i < celdas.length; i++) {
@@ -139,16 +142,16 @@ public class JuegoView extends JPanel {
 	public void drawSecretWord(String secretWord) {
 		this.lblResult.setText(secretWord);
 	}
-	
+
 	public void mostrarMensajeError(String mensaje) {
-	    lblError.setText(mensaje);
-	    lblError.setVisible(true);
-	    lblError.getParent().repaint();
-	    this.revalidate();
+		lblError.setText(mensaje);
+		lblError.setVisible(true);
+		lblError.getParent().repaint();
+		this.revalidate();
 	}
 
 	public void ocultarError() {
-	    lblError.setVisible(false);
+		lblError.setVisible(false);
 	}
 
 	public TextBoxCustom getTextField() {

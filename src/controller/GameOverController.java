@@ -1,5 +1,6 @@
 package controller;
 
+import model.JuegoM;
 import model.Navigation;
 import utils.ViewEnum;
 import view.GameOverView;
@@ -8,11 +9,9 @@ import view.JuegoView;
 public class GameOverController {
 	
 	private GameOverView vistaGameOver;
-    private JuegoView vistaJuego;
     private Navigation navigation;
-	public GameOverController(GameOverView vistaGameOver, JuegoView vistaJuego, Navigation navigation) {
+	public GameOverController(GameOverView vistaGameOver, Navigation navigation) {
 		this.vistaGameOver = vistaGameOver;
-		this.vistaJuego = vistaJuego; 
 		this.navigation = navigation;	
 		manejarEventos();
 	}
@@ -20,7 +19,6 @@ public class GameOverController {
 	private void manejarEventos() {
 				// Botón reintentar 
 				this.vistaGameOver.getBtnNewButton().addActionListener(e -> {				    
-				    this.vistaJuego.limpiarTablero(); 
 				    this.navigation.updateView(ViewEnum.JUEGO); 
 				});
 				// Botón VOLVER AL MENÚ 

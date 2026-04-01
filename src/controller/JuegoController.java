@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -23,6 +24,10 @@ public class JuegoController implements IJuegoObserver {
 		this.navigation = nav;
 		this.juegoModel.addObserver(this);
 		this.juegoModel.initialize();
+		for (ActionListener listener : this.juegoView.getTextField().getActionListeners()) {
+			this.juegoView.getTextField().removeActionListener(listener);
+		}
+		
 		handleEvents();
 	}
 
@@ -32,11 +37,11 @@ public class JuegoController implements IJuegoObserver {
 	}
 
 	private void enviarPalabra() {
-		if (this.juegoView.getTextField().getText().length() < 5) {
+		if (this.juegoView.getTextField().getText().trim().length() < 5) {
 			this.juegoModel.sendError();
 			return;
 		}
-		this.juegoModel.validarPalabra(this.juegoView.getTextField().getText());
+		this.juegoModel.validarPalabra(this.juegoView.getTextField().getText().trim());
 	}
 
 	@Override
@@ -50,6 +55,7 @@ public class JuegoController implements IJuegoObserver {
 	@Override
 	public void onJuegoTerminado(boolean gano) {
 		this.juegoView.getTextField().setEnabled(false);
+		this.juegoView.getLblResult().setVisible(true);
 		String textoResumen = "<html><div>Perdiste por esta vez,<br> pero podes volver a intentarlo.</div></html>";
 		if (gano) {
 			textoResumen = "<html><div>" + "¡Felicitaciones!<br>" + "Pudiste adivinar la palabra que fue<br>"
@@ -73,6 +79,7 @@ public class JuegoController implements IJuegoObserver {
 	public void onInitialize(int intentos, String secretWord) {
 		this.juegoView.recalcularIntentos(String.valueOf(this.juegoModel.getIntentosRestantes()));
 		this.juegoView.drawSecretWord(this.juegoModel.getPalabraSecreta());
+		this.juegoView.getLblResult().setVisible(false);
 		this.juegoView.getTextField().requestFocus();
 	}
 
