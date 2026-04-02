@@ -38,6 +38,7 @@ public class MenuView extends JPanel {
 		initialize();
 	}
 
+	// TODO estaría copado que el menu tenga estilos similes a juego y gameover
 	/**
 	 * Initialize the contents of the frame.
 	 */

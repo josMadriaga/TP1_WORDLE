@@ -34,12 +34,15 @@ public class NavigationController implements INavigationObserver {
 			Setting setting = new Setting();
 			new MenuController(setting, this.principal.getPanelMenu());
 			break;
-		case GAMEOVER:
-
-			break;
 		case JUEGO:
-			JuegoM juegoModel = new JuegoM();
+			//TODO Implementar mapeo de intentos por dificultad
+			JuegoM juegoModel = new JuegoM(6);
+			this.principal.getPanelJuego().limpiarTablero();
 			new JuegoController(this.principal.getPanelJuego(), juegoModel, this.navigation);
+			juegoModel.initialize();
+			break;
+		case GAMEOVER:
+			new GameOverController(this.principal.getPanelGameOver(), this.navigation);
 			break;
 		}
 	}

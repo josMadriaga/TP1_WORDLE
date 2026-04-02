@@ -13,7 +13,10 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	private String GRIS = "#3a3a3c";
 	private String VERDE = "#538d4e";
 
-	public JuegoM() {
+	public JuegoM(int intentos) {
+		// TODO agregar más listas con palabras en base a dificultad los arrays se
+		// pueden llamar como las dificultades para mediante una función flecha
+		// mapearlas facilmente por enum quizas
 		this.listaDePalabras = new String[] { "ACTOR", "AGUAS", "ALTOS", "AMIGO", "ARBOL", "AUTOS", "AVION", "BARCO",
 				"BESOS", "BRAZO", "CAJAS", "CALOR", "CAMAS", "CAMPO", "CANTO", "CARAS", "CARRO", "CASAS", "CERDO",
 				"ENANO", "CINCO", "CLARO", "CLIMA", "COCHE", "COLOR", "CORTE", "COSAS", "CREMA", "DADOS", "DATOS",
@@ -22,9 +25,9 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		Random generadorAleatorio = new Random();
 		int indiceAleatorio = generadorAleatorio.nextInt(this.listaDePalabras.length);
 		this.palabraSecreta = this.listaDePalabras[indiceAleatorio];
-		this.intentosRestantes = 6;
+		this.intentosRestantes = intentos;
 	}
-	
+
 	public void sendError() {
 		notifyObservers(o -> o.onError());
 	}
