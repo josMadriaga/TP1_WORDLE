@@ -2,43 +2,54 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import view.components.ButtonCustom;
+import view.components.PanelGameOver;
 
-public class GameOverView extends JPanel {
-	private ButtonCustom btnNewButton_1;
-	private ButtonCustom btnNewButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.Rectangle;
+
+public class GameOverView extends PanelGameOver {
+	private ButtonCustom btnMenu;
+	private ButtonCustom btnRetry;
+
 	public GameOverView() {
+		setBounds(new Rectangle(0, 0, 600, 500));
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Juego Terminado");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel.setBounds(73, 30, 300, 40);
-		add(lblNewLabel);
-		
-		
-		//aqui no se si informar la palabra porque en caso de perder quiza podriamos hacer que reinicie con esa misma palabra
-		JLabel lblNewLabel_1 = new JLabel("La plabra era: .....");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(73, 90, 300, 30);
-		add(lblNewLabel_1);
-		
-		btnNewButton = new ButtonCustom("Reintentar");	
-		btnNewButton.setBounds(40, 160, 140, 40);
-		add(btnNewButton);
-		
-		btnNewButton_1 = new ButtonCustom("Volver al menu");
-		btnNewButton_1.setBounds(264, 160, 140, 40);
-		add(btnNewButton_1);
+		JLabel lblGameOver = new JLabel("GAME           OVER");
+		lblGameOver.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGameOver.setForeground(Color.decode("#00FF41"));
+		lblGameOver.setFont(new Font("Copperplate Gothic Light", Font.BOLD, 36));
+		lblGameOver.setBounds(-25, 84, 600, 60);
+		add(lblGameOver);
+
+		btnRetry = new ButtonCustom("Reintentar", "#050796", "#2c2d96", "#1c1e99");
+		btnRetry.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnRetry.setBounds(341, 413, 123, 40);
+		add(btnRetry);
+
+		btnMenu = new ButtonCustom("Menu Principal", "#a30714", "#a14d54", "#992e37");
+		btnMenu.setText("Menu");
+		btnMenu.setFont(new Font("SansSerif", Font.BOLD, 14));
+		btnMenu.setBounds(117, 413, 108, 40);
+		add(btnMenu);
 	}
-	public JButton getBtnNewButton_1() {
-		return btnNewButton_1;
+
+	public JButton getBtnMenu() {
+		return btnMenu;
 	}
-	public JButton getBtnNewButton() {
-		return btnNewButton;
+
+	public JButton getBtnRetry() {
+		return btnRetry;
 	}
 }
