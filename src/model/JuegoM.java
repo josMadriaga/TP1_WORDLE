@@ -55,7 +55,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		// Luego, marcar las letras amarillas
 		for (int i = 0; i < 5; i++) {
 			if (coloresLetras[i].equals(GRIS)) {
-				int index = palabraSecreta.indexOf(String.valueOf(palabraIngresada.charAt(i)));
+				int index = palabraSecretaTemp.indexOf(String.valueOf(palabraIngresada.charAt(i)));
 				if (index != -1) {
 					coloresLetras[i] = AMARILLO;
 					palabraSecretaTemp.setCharAt(index, '-');
