@@ -34,6 +34,7 @@ public class PrincipalView extends JFrame {
 
         getContentPane().add(contenedorPrincipal, BorderLayout.CENTER);
         
+        setResizable(false);
         revalidate();
         repaint();
     }

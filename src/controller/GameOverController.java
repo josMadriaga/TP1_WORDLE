@@ -18,11 +18,11 @@ public class GameOverController {
 
 	private void manejarEventos() {
 				// Botón reintentar 
-				this.vistaGameOver.getBtnNewButton().addActionListener(e -> {				    
+				this.vistaGameOver.getBtnRetry().addActionListener(e -> {				    
 				    this.navigation.updateView(ViewEnum.JUEGO); 
 				});
 				// Botón VOLVER AL MENÚ 
-				this.vistaGameOver.getBtnNewButton_1().addActionListener(e -> {
+				this.vistaGameOver.getBtnMenu().addActionListener(e -> {
 					this.navigation.updateView(ViewEnum.MENU);
 				});
 	}
