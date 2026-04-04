@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 import utils.Observable;
 import events.IJuegoObserver;	
@@ -13,6 +14,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	private String AMARILLO = "#b59f3b";
 	private String GRIS = "#3a3a3c";
 	private String VERDE = "#538d4e";
+	private LocalDateTime fechaInicio;
 
 	public JuegoM(DifficultEnum dificultad,int intentos) {
 		// TODO agregar más listas con palabras en base a dificultad los arrays se
@@ -43,6 +45,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		int indiceAleatorio = generadorAleatorio.nextInt(this.listaDePalabras.length);
 		this.palabraSecreta = this.listaDePalabras[indiceAleatorio];
 		this.intentosRestantes = intentos;
+		this.fechaInicio = LocalDateTime.now();
 	}
 
 	public void sendError() {
@@ -105,6 +108,10 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		notifyObservers(observer -> {
 			observer.onInitialize(intentosRestantes, palabraSecreta);
 		});
+	}
+	
+	public LocalDateTime getFechaInicio() {
+		return fechaInicio;
 	}
 
 }
