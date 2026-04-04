@@ -37,7 +37,6 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		  case EASY -> facil;
 		  case NORMAL -> normal;
 		  case HARD -> dificil;
-		  default -> normal;
 		  };
 	  
 		Random generadorAleatorio = new Random();
