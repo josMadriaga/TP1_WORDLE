@@ -2,7 +2,8 @@ package model;
 
 import java.util.Random;
 import utils.Observable;
-import events.IJuegoObserver;
+import events.IJuegoObserver;	
+import utils.DifficultEnum;
 
 public class JuegoM extends Observable<IJuegoObserver> {
 	private String palabraSecreta;
@@ -13,15 +14,32 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	private String GRIS = "#3a3a3c";
 	private String VERDE = "#538d4e";
 
-	public JuegoM(int intentos) {
+	public JuegoM(DifficultEnum dificultad,int intentos) {
 		// TODO agregar más listas con palabras en base a dificultad los arrays se
 		// pueden llamar como las dificultades para mediante una función flecha
 		// mapearlas facilmente por enum quizas
-		this.listaDePalabras = new String[] { "ACTOR", "AGUAS", "ALTOS", "AMIGO", "ARBOL", "AUTOS", "AVION", "BARCO",
-				"BESOS", "BRAZO", "CAJAS", "CALOR", "CAMAS", "CAMPO", "CANTO", "CARAS", "CARRO", "CASAS", "CERDO",
-				"ENANO", "CINCO", "CLARO", "CLIMA", "COCHE", "COLOR", "CORTE", "COSAS", "CREMA", "DADOS", "DATOS",
-				"DISCO", "DULCE", "ESTAR", "FELIZ", "FUEGO", "GATOS", "GENTE", "GOTAS", "GRUPO", "HIELO", "HOJAS",
-				"HORAS", "HUESO", "IDEAS", "ISLAS", "JABON", "JOVEN", "JUEGO", "LAPIZ", "LIBRO" };
+		  String[] facil = { "GATOS", "PERRO", "CASAS", "AUTOS", "AGUAS", 
+				    		"COCHE", "COLOR", "FELIZ", "ARBOL", "AMIGO", 
+				    		"MESAS", "LIBRO", "LAPIZ", "NOCHE", "TARDE", 
+				    		"LUNAS", "SOLES", "RATON", "REINA", "FUEGO"};
+		  
+		  String[] normal = {"ACTOR", "BRAZO", "CLIMA", "HIELO", "JUEGO", 
+				  			"BARCO", "DULCE", "GENTE", "JOVEN", "CINCO", 
+				  			"CAMPO", "MUNDO", "NORTE", "PISTA", "RADIO", 
+				  			"SALUD", "VALOR", "VOCES", "VUELO", "PLAZA"};
+		  
+		  String[] dificil = {"ZARZA", "ÑANDU", "AÑEJO", "QUIZA", "GNOMO", 
+				    		"YELMO", "XENON", "BOXEO", "KIWIS", "KAYAK", 
+				    		"FLUOR", "EBANO", "PIZZA", "ZORRO", "VORAZ", 
+				    		"SAXOS", "JUEZA", "BAZAR", "BRUJA", "CHUZA"};
+		  
+		  this.listaDePalabras = switch (dificultad) {
+		  case EASY -> facil;
+		  case NORMAL -> normal;
+		  case HARD -> dificil;
+		  default -> normal;
+		  };
+	  
 		Random generadorAleatorio = new Random();
 		int indiceAleatorio = generadorAleatorio.nextInt(this.listaDePalabras.length);
 		this.palabraSecreta = this.listaDePalabras[indiceAleatorio];
