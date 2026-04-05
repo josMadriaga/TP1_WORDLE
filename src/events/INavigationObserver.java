@@ -3,5 +3,5 @@
 import utils.ViewEnum;
 
 public interface INavigationObserver {
-	void onViewChanged(ViewEnum viewName);
+	void onViewChanged(ViewEnum viewName, int tiempoUsuario);
 }
