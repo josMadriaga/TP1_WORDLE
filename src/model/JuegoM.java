@@ -45,7 +45,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		int indiceAleatorio = generadorAleatorio.nextInt(this.listaDePalabras.length);
 		this.palabraSecreta = this.listaDePalabras[indiceAleatorio];
 		this.intentosRestantes = intentos;
-		this.fechaInicio = LocalDateTime.now();
+		this.fechaInicio = null; 
 	}
 
 	public void sendError() {
@@ -105,6 +105,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	}
 
 	public void initialize() {
+		this.fechaInicio = LocalDateTime.now();
 		notifyObservers(observer -> {
 			observer.onInitialize(intentosRestantes, palabraSecreta);
 		});
