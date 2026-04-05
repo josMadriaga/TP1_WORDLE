@@ -1,9 +1,10 @@
 package model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Random;
 import utils.Observable;
-import events.IJuegoObserver;	
+import events.IJuegoObserver;
 import utils.DifficultEnum;
 
 public class JuegoM extends Observable<IJuegoObserver> {
@@ -16,36 +17,28 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	private String VERDE = "#538d4e";
 	private LocalDateTime fechaInicio;
 
-	public JuegoM(DifficultEnum dificultad,int intentos) {
-		// TODO agregar más listas con palabras en base a dificultad los arrays se
-		// pueden llamar como las dificultades para mediante una función flecha
-		// mapearlas facilmente por enum quizas
-		  String[] facil = { "GATOS", "PERRO", "CASAS", "AUTOS", "AGUAS", 
-				    		"COCHE", "COLOR", "FELIZ", "ARBOL", "AMIGO", 
-				    		"MESAS", "LIBRO", "LAPIZ", "NOCHE", "TARDE", 
-				    		"LUNAS", "SOLES", "RATON", "REINA", "FUEGO"};
-		  
-		  String[] normal = {"ACTOR", "BRAZO", "CLIMA", "HIELO", "JUEGO", 
-				  			"BARCO", "DULCE", "GENTE", "JOVEN", "CINCO", 
-				  			"CAMPO", "MUNDO", "NORTE", "PISTA", "RADIO", 
-				  			"SALUD", "VALOR", "VOCES", "VUELO", "PLAZA"};
-		  
-		  String[] dificil = {"ZARZA", "ÑANDU", "AÑEJO", "QUIZA", "GNOMO", 
-				    		"YELMO", "XENON", "BOXEO", "KIWIS", "KAYAK", 
-				    		"FLUOR", "EBANO", "PIZZA", "ZORRO", "VORAZ", 
-				    		"SAXOS", "JUEZA", "BAZAR", "BRUJA", "CHUZA"};
-		  
-		  this.listaDePalabras = switch (dificultad) {
-		  case EASY -> facil;
-		  case NORMAL -> normal;
-		  case HARD -> dificil;
-		  };
-	  
+	public JuegoM(DifficultEnum dificultad, int intentos) {
+		
+		String[] facil = { "GATOS", "PERRO", "CASAS", "AUTOS", "AGUAS", "COCHE", "COLOR", "FELIZ", "ARBOL", "AMIGO",
+				"MESAS", "LIBRO", "LAPIZ", "NOCHE", "TARDE", "LUNAS", "SOLES", "RATON", "REINA", "FUEGO" };
+
+		String[] normal = { "ACTOR", "BRAZO", "CLIMA", "HIELO", "JUEGO", "BARCO", "DULCE", "GENTE", "JOVEN", "CINCO",
+				"CAMPO", "MUNDO", "NORTE", "PISTA", "RADIO", "SALUD", "VALOR", "VOCES", "VUELO", "PLAZA" };
+
+		String[] dificil = { "ZARZA", "ÑANDU", "AÑEJO", "QUIZA", "GNOMO", "YELMO", "XENON", "BOXEO", "KIWIS", "KAYAK",
+				"FLUOR", "EBANO", "PIZZA", "ZORRO", "VORAZ", "SAXOS", "JUEZA", "BAZAR", "BRUJA", "CHUZA" };
+
+		this.listaDePalabras = switch (dificultad) {
+		case EASY -> facil;
+		case NORMAL -> normal;
+		case HARD -> dificil;
+		};
+
 		Random generadorAleatorio = new Random();
 		int indiceAleatorio = generadorAleatorio.nextInt(this.listaDePalabras.length);
 		this.palabraSecreta = this.listaDePalabras[indiceAleatorio];
 		this.intentosRestantes = intentos;
-		this.fechaInicio = null; 
+		this.fechaInicio = null;
 	}
 
 	public void sendError() {
@@ -58,7 +51,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		if (palabraIngresada.equals(getPalabraSecreta())) {
 			notifyObservers(observer -> {
 				observer.onPalabraRevisada(coloresLetras, fila);
-				observer.onJuegoTerminado(true);
+				observer.onJuegoTerminado(true, obtenerTiempoUsuario());
 			});
 			return;
 		}
@@ -87,9 +80,17 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		boolean gano = palabraIngresada.equals(palabraSecreta);
 		notifyObservers(observer -> observer.onPalabraRevisada(coloresLetras, fila));
 		if (gano || intentosRestantes == 0) {
-			notifyObservers(observer -> observer.onJuegoTerminado(gano));
+			notifyObservers(observer -> observer.onJuegoTerminado(gano, 0));
 		}
 		this.fila++;
+	}
+
+	private int obtenerTiempoUsuario() {
+		LocalDateTime fechaFin = LocalDateTime.now();
+		Duration duracion = Duration.between(this.fechaInicio, fechaFin);
+		int tiempoUsuario = Math.toIntExact(duracion.toSeconds());
+		
+		return tiempoUsuario;
 	}
 
 	public String getPalabraSecreta() {
@@ -110,7 +111,7 @@ public class JuegoM extends Observable<IJuegoObserver> {
 			observer.onInitialize(intentosRestantes, palabraSecreta);
 		});
 	}
-	
+
 	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}

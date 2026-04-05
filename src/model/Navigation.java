@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDateTime;
+
 import events.INavigationObserver;
 import utils.Observable;
 import utils.ViewEnum;
@@ -11,9 +13,9 @@ public class Navigation extends Observable<INavigationObserver> {
 		this.view = ViewEnum.MENU;
 	}
 	
-	public void updateView(ViewEnum newView) {
+	public void updateView(ViewEnum newView, int tiempoUsuario) {
 		this.view = newView;
-		notifyObservers(observer -> observer.onViewChanged(newView));
+		notifyObservers(observer -> observer.onViewChanged(newView, tiempoUsuario));
 	}
 	
 	public ViewEnum getView() {

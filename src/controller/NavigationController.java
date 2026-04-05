@@ -2,6 +2,7 @@ package controller;
 
 import events.INavigationObserver;
 import model.JuegoM;
+import model.LeaderBoard;
 import model.Navigation;
 import model.Setting;
 import utils.ViewEnum;
@@ -11,6 +12,7 @@ public class NavigationController implements INavigationObserver {
 	private PrincipalView principal;
 	private Navigation navigation;
 	private Setting setting;
+	private int tiempoUsuario;
 
 	public NavigationController(PrincipalView principal, Navigation navigation) {
 		this.principal = principal;
@@ -23,13 +25,17 @@ public class NavigationController implements INavigationObserver {
 
 	private void handleEvents() {
 		this.principal.getPanelMenu().getBtnStart().addActionListener(e -> {
-			this.navigation.updateView(ViewEnum.JUEGO);
+			this.tiempoUsuario = 0;
+			this.navigation.updateView(ViewEnum.JUEGO, this.tiempoUsuario);
 		});
 
 	}
 
 	@Override
-	public void onViewChanged(ViewEnum viewName) {
+	public void onViewChanged(ViewEnum viewName, int tiempoUsuario) {
+		if (this.tiempoUsuario == 0) {
+			this.tiempoUsuario = tiempoUsuario;
+		}
 		this.principal.navegarA(viewName.toString());
 		switch (viewName) {
 		case MENU:
@@ -43,6 +49,10 @@ public class NavigationController implements INavigationObserver {
 			break;
 		case GAMEOVER:
 			new GameOverController(this.principal.getPanelGameOver(), this.navigation);
+			break;
+		case LEADERBOARD:
+			LeaderBoard rankingModel = new LeaderBoard(this.tiempoUsuario);
+			new LeaderBoardController(rankingModel, this.principal.getPanelLeaderBoard());
 			break;
 		}
 	}
