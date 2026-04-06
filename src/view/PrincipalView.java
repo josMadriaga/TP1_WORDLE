@@ -14,6 +14,7 @@ public class PrincipalView extends JFrame {
     private MenuView panelMenu;
     private JuegoView panelJuego;
     private GameOverView panelGameOver;
+    private LeaderBoardView panelLeaderBoard;
 
     public PrincipalView() {
         setTitle("Wordle UNGS");
@@ -27,9 +28,11 @@ public class PrincipalView extends JFrame {
         panelMenu = new MenuView();
         panelJuego = new JuegoView();
         panelGameOver = new GameOverView();
+        panelLeaderBoard = new LeaderBoardView();
 
         contenedorPrincipal.add(panelMenu, ViewEnum.MENU.toString());
         contenedorPrincipal.add(panelJuego, ViewEnum.JUEGO.toString());
+        contenedorPrincipal.add(panelLeaderBoard, ViewEnum.LEADERBOARD.toString());
         contenedorPrincipal.add(panelGameOver, ViewEnum.GAMEOVER.toString());
 
         getContentPane().add(contenedorPrincipal, BorderLayout.CENTER);
@@ -54,5 +57,10 @@ public class PrincipalView extends JFrame {
 	public GameOverView getPanelGameOver() {
 		return panelGameOver;
 	}
+
+	public LeaderBoardView getPanelLeaderBoard() {
+		return panelLeaderBoard;
+	}
+	
 
 }

@@ -1,9 +1,6 @@
 package controller;
 
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.Timer;
 
 import events.IJuegoObserver;
@@ -27,7 +24,7 @@ public class JuegoController implements IJuegoObserver {
 		for (ActionListener listener : this.juegoView.getTextField().getActionListeners()) {
 			this.juegoView.getTextField().removeActionListener(listener);
 		}
-		
+
 		handleEvents();
 	}
 
@@ -53,7 +50,7 @@ public class JuegoController implements IJuegoObserver {
 	}
 
 	@Override
-	public void onJuegoTerminado(boolean gano) {
+	public void onJuegoTerminado(boolean gano, int tiempoUsuario) {
 		this.juegoView.getTextField().setEnabled(false);
 		this.juegoView.getLblResult().setVisible(true);
 		String textoResumen = "<html><div>Perdiste por esta vez,<br> pero podes volver a intentarlo.</div></html>";
@@ -65,12 +62,16 @@ public class JuegoController implements IJuegoObserver {
 		modal.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e) {
-				navigation.updateView(ViewEnum.GAMEOVER);
+				navigation.updateView(ViewEnum.GAMEOVER, 0);
 			}
 		});
 		modal.getOkButton().addActionListener(e -> {
 			modal.dispose();
-			this.navigation.updateView(ViewEnum.GAMEOVER);
+			if (!gano) {
+				this.navigation.updateView(ViewEnum.GAMEOVER, 0);
+				return;
+			}
+			this.navigation.updateView(ViewEnum.LEADERBOARD, tiempoUsuario);
 		});
 		modal.setVisible(true);
 	}
@@ -87,10 +88,10 @@ public class JuegoController implements IJuegoObserver {
 	public void onError() {
 		this.juegoView.mostrarMensajeError("¡LA PALABRA DEBE TENER 5 LETRAS!");
 		Timer timerOcultar = new Timer(2000, e -> {
-            this.juegoView.ocultarError();
-        });
-        timerOcultar.setRepeats(false);
-        timerOcultar.start();
+			this.juegoView.ocultarError();
+		});
+		timerOcultar.setRepeats(false);
+		timerOcultar.start();
 	}
 
 }

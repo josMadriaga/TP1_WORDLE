@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDateTime;
+
 import model.JuegoM;
 import model.Navigation;
 import utils.ViewEnum;
@@ -18,12 +20,12 @@ public class GameOverController {
 
 	private void manejarEventos() {
 				// Botón reintentar 
-				this.vistaGameOver.getBtnRetry().addActionListener(e -> {				    
-				    this.navigation.updateView(ViewEnum.JUEGO); 
+				this.vistaGameOver.getBtnRetry().addActionListener(e -> {	
+				    this.navigation.updateView(ViewEnum.JUEGO, 0); 
 				});
 				// Botón VOLVER AL MENÚ 
 				this.vistaGameOver.getBtnMenu().addActionListener(e -> {
-					this.navigation.updateView(ViewEnum.MENU);
+					this.navigation.updateView(ViewEnum.MENU, 0);
 				});
 	}
 }
