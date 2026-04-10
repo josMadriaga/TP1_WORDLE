@@ -7,10 +7,14 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+
+import utils.LanguageUtil;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.util.Iterator;
+import java.util.ResourceBundle;
 
 import view.components.ButtonCustom;
 import view.components.CeldaCustom;
@@ -30,6 +34,7 @@ public class JuegoView extends JPanel {
 	private JLabel lblResult;
 	private JLabel lblError;
 	private CeldaCustom[][] celdas = new CeldaCustom[6][5];
+	private JLabel lblIntentos;
 
 	public JuegoView() {
 		setBounds(getBounds());
@@ -51,7 +56,7 @@ public class JuegoView extends JPanel {
 		lblError.setVisible(false);
 		add(lblError);
 
-		tglbtnSubmit = new ButtonCustom("Confirmar");
+		tglbtnSubmit = new ButtonCustom("");
 		tglbtnSubmit.setForeground(Color.WHITE);
 		tglbtnSubmit.setBounds(358, 455, 119, 29);
 		tglbtnSubmit.setToolTipText("Revisa si la palabra coincide o si hay letras que coincidan.");
@@ -70,10 +75,10 @@ public class JuegoView extends JPanel {
 			}
 		}
 
-		JLabel lblIntentos = new JLabel("Intentos:");
+		lblIntentos = new JLabel("");
 		lblIntentos.setForeground(new Color(255, 255, 255));
 		lblIntentos.setFont(new Font("SansSerif", Font.BOLD, 18));
-		lblIntentos.setBounds(10, 7, 90, 25);
+		lblIntentos.setBounds(10, 7, 174, 25);
 		add(lblIntentos);
 
 		lblCantIntentos = new JLabel("0");
@@ -87,7 +92,7 @@ public class JuegoView extends JPanel {
 		lblResult.setForeground(new Color(255, 255, 255));
 		lblResult.setBounds(246, 10, 250, 66);
 		add(lblResult);
-
+		updateTexts();
 		((AbstractDocument) textField.getDocument()).setDocumentFilter(new DocumentFilter() {
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
@@ -105,6 +110,13 @@ public class JuegoView extends JPanel {
 				}
 			}
 		});
+	}
+
+	private void updateTexts() {
+		ResourceBundle  rb = LanguageUtil.getBundle("juego");
+		tglbtnSubmit.setText(rb.getString("btn.Confirm"));
+		lblError.setText(rb.getString("lblError"));
+		lblIntentos.setText(rb.getString("lblIntentos"));
 	}
 
 	public void limpiarTablero() {
@@ -143,8 +155,7 @@ public class JuegoView extends JPanel {
 		this.lblResult.setText(secretWord);
 	}
 
-	public void mostrarMensajeError(String mensaje) {
-		lblError.setText(mensaje);
+	public void mostrarMensajeError() {
 		lblError.setVisible(true);
 		lblError.getParent().repaint();
 		this.revalidate();

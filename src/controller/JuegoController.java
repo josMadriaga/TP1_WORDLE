@@ -53,12 +53,8 @@ public class JuegoController implements IJuegoObserver {
 	public void onJuegoTerminado(boolean gano, int tiempoUsuario) {
 		this.juegoView.getTextField().setEnabled(false);
 		this.juegoView.getLblResult().setVisible(true);
-		String textoResumen = "<html><div>Perdiste por esta vez,<br> pero podes volver a intentarlo.</div></html>";
-		if (gano) {
-			textoResumen = "<html><div>" + "¡Felicitaciones!<br>" + "Pudiste adivinar la palabra que fue<br>"
-					+ "seleccionada especialmente para vos." + "</div></html>";
-		}
-		StatusDialog modal = new StatusDialog(textoResumen);
+		
+		StatusDialog modal = new StatusDialog(gano);
 		modal.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e) {
@@ -86,7 +82,7 @@ public class JuegoController implements IJuegoObserver {
 
 	@Override
 	public void onError() {
-		this.juegoView.mostrarMensajeError("¡LA PALABRA DEBE TENER 5 LETRAS!");
+		this.juegoView.mostrarMensajeError();
 		Timer timerOcultar = new Timer(2000, e -> {
 			this.juegoView.ocultarError();
 		});

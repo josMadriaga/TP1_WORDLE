@@ -23,7 +23,6 @@ public class LeaderBoard  extends Observable<ILeaderBoardObserver>{
 	}
 	
 	public void obtenerRanking(){
-		System.out.println(this.tiempoUsuario);
 		scores.add(new Score("YOU", this.tiempoUsuario));
 		scores.sort((a, b) -> Integer.compare(a.getSegundos(), b.getSegundos()));
 		
