@@ -21,6 +21,8 @@ public class NavigationController implements INavigationObserver {
 
 		this.navigation.addObserver(this);
 		handleEvents();
+		
+		new MenuController(this.setting, this.principal.getPanelMenu());
 	}
 
 	private void handleEvents() {
@@ -42,8 +44,9 @@ public class NavigationController implements INavigationObserver {
 			new MenuController(this.setting, this.principal.getPanelMenu());
 			break;
 		case JUEGO:
-			JuegoM juegoModel = new JuegoM(setting.getDificultad(),6);
+			JuegoM juegoModel = new JuegoM(setting.getDificultad(),setting.getLenguaje(),6);
 			this.principal.getPanelJuego().limpiarTablero();
+			this.principal.getPanelJuego().updateTexts();
 			new JuegoController(this.principal.getPanelJuego(), juegoModel, this.navigation);
 			juegoModel.initialize();
 			break;

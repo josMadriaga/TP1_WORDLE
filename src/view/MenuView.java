@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.UIManager;
+
+import utils.LanguageUtil;
+
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
@@ -11,6 +14,8 @@ import javax.swing.ButtonGroup;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
+
 import view.components.RadioButtonCustom;
 import view.components.ButtonCustom;
 
@@ -38,33 +43,29 @@ public class MenuView extends JPanel {
 		initialize();
 	}
 
-	// TODO estaría copado que el menu tenga estilos similes a juego y gameover
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {	
 		setBounds(getBounds());
 		setBackground(Color.decode("#121213"));
 		setLayout(null);
 
 		JLabel lblLogo = new JLabel("WORDLE UNGS", SwingConstants.CENTER);
-		lblLogo.setForeground(Color.WHITE); // Texto temporal por si no carga la imagen
+		lblLogo.setForeground(Color.WHITE);
 		lblLogo.setFont(new Font("SansSerif", Font.BOLD, 32));
 		lblLogo.setBounds(100, 40, 400, 100);
 		add(lblLogo);
 		
 		// Lado Izquierdo - Lenguaje
-		labelLenguaje = new JLabel("Idioma:");
-		labelLenguaje.setForeground(new Color(150, 155, 160)); // Un gris clarito elegante
+		labelLenguaje = new JLabel("");
+		labelLenguaje.setForeground(new Color(150, 155, 160));
 		labelLenguaje.setFont(new Font("SansSerif", Font.BOLD, 18));
 		labelLenguaje.setBounds(130, 180, 150, 25);
 		add(labelLenguaje);
 		
-		rdbtnEspanol = new RadioButtonCustom("Español");
+		rdbtnEspanol = new RadioButtonCustom("");
 		rdbtnEspanol.setActionCommand("SPANISH");	
 		rdbtnEspanol.setBounds(130, 220, 150, 30);
 
-		rdbtnIngles = new RadioButtonCustom("Ingles");
+		rdbtnIngles = new RadioButtonCustom("");
 		rdbtnIngles.setActionCommand("ENGLISH");
 		rdbtnIngles.setBounds(130, 260, 150, 30);
 		
@@ -74,21 +75,21 @@ public class MenuView extends JPanel {
 		add(rdbtnEspanol);
 		
 		// Lado Derecho - Dificultad
-		labelDificultad = new JLabel("Dificultad:");
+		labelDificultad = new JLabel("");
 		labelDificultad.setForeground(new Color(150, 155, 160));
 		labelDificultad.setFont(new Font("SansSerif", Font.BOLD, 18));
 		labelDificultad.setBounds(350, 180, 150, 25);
 		add(labelDificultad);
 		
-		rdbtnFacil = new RadioButtonCustom("Fácil");
+		rdbtnFacil = new RadioButtonCustom("");
 		rdbtnFacil.setActionCommand("EASY");
 		rdbtnFacil.setBounds(350, 220, 150, 30);
 		
-		rdbtnNormal = new RadioButtonCustom("Normal");
+		rdbtnNormal = new RadioButtonCustom("");
 		rdbtnNormal.setActionCommand("NORMAL");
 		rdbtnNormal.setBounds(350, 260, 150, 30);
 		
-		rdbtnDificil = new RadioButtonCustom("Difícil");
+		rdbtnDificil = new RadioButtonCustom("");
 		rdbtnDificil.setActionCommand("HARD");
 		rdbtnDificil.setBounds(350, 300, 150, 30);
 		
@@ -100,12 +101,22 @@ public class MenuView extends JPanel {
 		add(rdbtnFacil);
 
 		// Botón de Start
-		btnStart = new ButtonCustom("Start");
-		btnStart.setBounds(200, 420, 200, 45); // Botón más ancho y vistoso
+		btnStart = new ButtonCustom("");
+		btnStart.setBounds(200, 420, 200, 45);
 		add(btnStart);
-		
+		updateTexts();
 	}
-
+	public void updateTexts() {
+		ResourceBundle  rb = LanguageUtil.getBundle("menu");
+		labelLenguaje.setText(rb.getString("labelLenguaje"));
+		rdbtnEspanol.setText(rb.getString("rdbtnEspanol"));
+		rdbtnIngles.setText(rb.getString("rdbtnIngles"));
+		labelDificultad.setText(rb.getString("labelDificultad"));
+		rdbtnFacil.setText(rb.getString("rdBtnFacil"));
+		rdbtnNormal.setText(rb.getString("rdBtnNormal"));
+		rdbtnDificil.setText(rb.getString("rdBtnDificil"));
+		btnStart.setText(rb.getString("btnStart"));
+	}
 	public JButton getBtnStart() {
 		return btnStart;
 	}
