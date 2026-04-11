@@ -2,29 +2,39 @@ package utils;
 
 public class WordUtil {
 	// Listas en ESPAÑOL
-	private static String[] facil = { "GATOS", "PERRO", "CASAS", "AUTOS", "AGUAS", "COCHE", "COLOR", "FELIZ", "ARBOL", "AMIGO",
-			"MESAS", "LIBRO", "LAPIZ", "NOCHE", "TARDE", "LUNAS", "SOLES", "RATON", "REINA", "FUEGO" };
+	private static String[] facil = { "GATOS", "PERRO", "CASAS", "AUTOS", "AGUAS", "COCHE", "COLOR", "FELIZ", "ARBOL",
+			"AMIGO", "MESAS", "LIBRO", "LAPIZ", "NOCHE", "TARDE", "LUNAS", "SOLES", "RATON", "REINA", "FUEGO" };
 
-	private static String[] normal = { "ACTOR", "BRAZO", "CLIMA", "HIELO", "JUEGO", "BARCO", "DULCE", "GENTE", "JOVEN", "CINCO",
-			"CAMPO", "MUNDO", "NORTE", "PISTA", "RADIO", "SALUD", "VALOR", "VOCES", "VUELO", "PLAZA" };
+	private static String[] normal = { "ACTOR", "BRAZO", "CLIMA", "HIELO", "JUEGO", "BARCO", "DULCE", "GENTE", "JOVEN",
+			"CINCO", "CAMPO", "MUNDO", "NORTE", "PISTA", "RADIO", "SALUD", "VALOR", "VOCES", "VUELO", "PLAZA" };
 
-	private static String[] dificil = { "ZARZA", "ÑANDU", "AÑEJO", "QUIZA", "GNOMO", "YELMO", "XENON", "BOXEO", "KIWIS", "KAYAK",
-			"FLUOR", "EBANO", "PIZZA", "ZORRO", "VORAZ", "SAXOS", "JUEZA", "BAZAR", "BRUJA", "CHUZA" };
+	private static String[] dificil = { "ZARZA", "ÑANDU", "AÑEJO", "QUIZA", "GNOMO", "YELMO", "XENON", "BOXEO", "KIWIS",
+			"KAYAK", "FLUOR", "EBANO", "PIZZA", "ZORRO", "VORAZ", "SAXOS", "JUEZA", "BAZAR", "BRUJA", "CHUZA" };
 
 	// Listas en INGLES
-	private static String[] facilEN = { "APPLE", "WATER", "HOUSE", "MOUSE", "CHAIR", "TABLE", "CLOCK", "TRAIN", "PLANT", "GRASS",
-			"BEACH", "RIVER", "MUSIC", "SOUND", "LIGHT", "NIGHT", "HEART", "SMILE", "HAPPY", "SEVEN" };
+	private static String[] facilEN = { "APPLE", "WATER", "HOUSE", "MOUSE", "CHAIR", "TABLE", "CLOCK", "TRAIN", "PLANT",
+			"GRASS", "BEACH", "RIVER", "MUSIC", "SOUND", "LIGHT", "NIGHT", "HEART", "SMILE", "HAPPY", "SEVEN" };
 
-	private static String[] normalEN = { "BREAD", "JUICE", "KNIFE", "SPOON", "SUGAR", "FLOUR", "WHEAT", "GRAIN", "EARTH", "WORLD",
-			"SPACE", "ALIEN", "GHOST", "MAGIC", "WITCH", "SPELL", "SWORD", "SHAPE", "ARMOR", "FRAME" };
+	private static String[] normalEN = { "BREAD", "JUICE", "KNIFE", "SPOON", "SUGAR", "FLOUR", "WHEAT", "GRAIN",
+			"EARTH", "WORLD", "SPACE", "ALIEN", "GHOST", "MAGIC", "WITCH", "SPELL", "SWORD", "SHAPE", "ARMOR",
+			"FRAME" };
 
-	private static String[] dificilEN = { "AZURE", "BAZAR", "CIVIC", "CRUMB", "DIZZY", "DWARF", "FLUFF", "FUZZY", "GYPSY", "HAIKU",
-			"JAZZY", "KAZOO", "KHAKI", "NYMPH", "PIZZA", "PLUMP", "QUEUE", "QUART", "TOPAZ", "ZEBRA" };
+	private static String[] dificilEN = { "AZURE", "BAZAR", "CIVIC", "CRUMB", "DIZZY", "DWARF", "FLUFF", "FUZZY",
+			"GYPSY", "HAIKU", "JAZZY", "KAZOO", "KHAKI", "NYMPH", "PIZZA", "PLUMP", "QUEUE", "QUART", "TOPAZ",
+			"ZEBRA" };
 
 	public static String[] buildWordArray(LanguageEnum language, DifficultEnum difficult) {
+		if (language == null) {
+			throw new IllegalArgumentException("language must not be null");
+		}
+		if (difficult == null) {
+			throw new IllegalArgumentException("difficult must not be null");
+		}
+
 		String[] arr = switch (language) {
 		case ENGLISH -> getWordsByDifficult_EN(difficult);
 		case SPANISH -> getWordsByDifficult_ES(difficult);
+		default -> throw new IllegalArgumentException("Unsupported language: " + language);
 		};
 
 		return arr;

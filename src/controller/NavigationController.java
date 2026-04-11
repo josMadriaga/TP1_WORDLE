@@ -14,6 +14,11 @@ public class NavigationController implements INavigationObserver {
 	private Setting setting;
 	private int tiempoUsuario;
 
+	private MenuController menuController;
+	private JuegoController juegoController;
+	private GameOverController gameOverController;
+	private LeaderBoardController leaderBoardController;
+
 	public NavigationController(PrincipalView principal, Navigation navigation) {
 		this.principal = principal;
 		this.navigation = navigation;
@@ -21,8 +26,8 @@ public class NavigationController implements INavigationObserver {
 
 		this.navigation.addObserver(this);
 		handleEvents();
-		
-		new MenuController(this.setting, this.principal.getPanelMenu());
+
+		this.menuController = new MenuController(this.setting, this.principal.getPanelMenu());
 	}
 
 	private void handleEvents() {
@@ -41,19 +46,34 @@ public class NavigationController implements INavigationObserver {
 		this.principal.navegarA(viewName.toString());
 		switch (viewName) {
 		case MENU:
-			new MenuController(this.setting, this.principal.getPanelMenu());
+			if (this.menuController != null) {
+				this.menuController.dispose();
+				this.menuController = null;
+			}
+			this.principal.getPanelMenu().updateTexts();
 			break;
 		case JUEGO:
-			JuegoM juegoModel = new JuegoM(setting.getDificultad(),setting.getLenguaje(),6);
+			if (this.juegoController != null) {
+				this.juegoController.dispose();
+				this.juegoController = null;
+			}
+			JuegoM juegoModel = new JuegoM(setting.getDificultad(), setting.getLenguaje(), 6);
 			this.principal.getPanelJuego().limpiarTablero();
 			this.principal.getPanelJuego().updateTexts();
 			new JuegoController(this.principal.getPanelJuego(), juegoModel, this.navigation);
-			juegoModel.initialize();
 			break;
 		case GAMEOVER:
+			if (this.gameOverController != null) {
+				this.gameOverController.dispose();
+				this.gameOverController = null;
+			}
 			new GameOverController(this.principal.getPanelGameOver(), this.navigation);
 			break;
 		case LEADERBOARD:
+			if (this.leaderBoardController != null) {
+				this.leaderBoardController.dispose();
+				this.leaderBoardController = null;
+			}
 			LeaderBoard rankingModel = new LeaderBoard(this.tiempoUsuario);
 			new LeaderBoardController(rankingModel, this.principal.getPanelLeaderBoard());
 			break;

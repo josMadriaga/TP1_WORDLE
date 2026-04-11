@@ -14,6 +14,8 @@ public class JuegoController implements IJuegoObserver {
 	private JuegoView juegoView;
 	private JuegoM juegoModel;
 	private Navigation navigation;
+	private ActionListener submitListener;
+	private ActionListener textFieldListener;
 
 	public JuegoController(JuegoView juego, JuegoM juegoM, Navigation nav) {
 		this.juegoView = juego;
@@ -28,9 +30,26 @@ public class JuegoController implements IJuegoObserver {
 		handleEvents();
 	}
 
+	public void dispose() {
+		this.juegoModel.removeObserver(this);
+		for (ActionListener listener : this.juegoView.getTextField().getActionListeners()) {
+			this.juegoView.getTextField().removeActionListener(listener);
+		}
+		if (this.submitListener != null) {
+			this.juegoView.getTglbtnSubmit().removeActionListener(this.submitListener);
+			this.submitListener = null;
+		}
+		if (this.textFieldListener != null) {
+			this.juegoView.getTextField().removeActionListener(this.textFieldListener);
+			this.textFieldListener = null;
+		}
+	}
+
 	private void handleEvents() {
-		this.juegoView.getTglbtnSubmit().addActionListener(e -> enviarPalabra());
-		this.juegoView.getTextField().addActionListener(e -> enviarPalabra());
+		this.submitListener = e -> enviarPalabra();
+		this.textFieldListener = e -> enviarPalabra();
+		this.juegoView.getTglbtnSubmit().addActionListener(this.submitListener);
+		this.juegoView.getTextField().addActionListener(this.textFieldListener);
 	}
 
 	private void enviarPalabra() {
@@ -53,7 +72,7 @@ public class JuegoController implements IJuegoObserver {
 	public void onJuegoTerminado(boolean gano, int tiempoUsuario) {
 		this.juegoView.getTextField().setEnabled(false);
 		this.juegoView.getLblResult().setVisible(true);
-		
+
 		StatusDialog modal = new StatusDialog(gano);
 		modal.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override

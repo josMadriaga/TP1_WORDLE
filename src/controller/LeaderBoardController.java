@@ -10,13 +10,18 @@ import view.LeaderBoardView;
 public class LeaderBoardController implements ILeaderBoardObserver {
 	private LeaderBoard rankingModel;
 	private LeaderBoardView rankingView;
-	
+
 	public LeaderBoardController(LeaderBoard rankingModel, LeaderBoardView rankingView) {
 		this.rankingModel = rankingModel;
 		this.rankingView = rankingView;
 		this.rankingModel.addObserver(this);
 		this.rankingModel.obtenerRanking();
 	}
+
+	public void dispose() {
+		this.rankingModel.removeObserver(this);
+	}
+
 	@Override
 	public void onInitialize(ArrayList<Score> scores) {
 		this.rankingView.actualizarTabla(scores);
