@@ -17,7 +17,6 @@ public class Setting extends Observable<ISettingsObserver> {
 
 	public void updateDifficult(DifficultEnum newDifficult) {
 		this.dificultad = newDifficult;
-		notifyObservers(observer -> observer.onDifficultChanged(newDifficult));
 	}
 
 	public void updateLanguage(LanguageEnum newLanguage) {

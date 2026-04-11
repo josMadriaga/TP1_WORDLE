@@ -1,6 +1,9 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+
+import javax.swing.Action;
+
 import utils.DifficultEnum;
 import utils.LanguageEnum;
 import events.ISettingsObserver;
@@ -15,10 +18,10 @@ public class MenuController implements ISettingsObserver {
 	    this.vista = vista;
 
 	    this.modelo.addObserver(this);
-	    
 	    this.vista.addDificultadListener(e -> cambiarDificultad(e));
 	    this.vista.addLanguageListener(e -> cambiarIdioma(e));
 	}
+
 
 	public void cambiarDificultad(ActionEvent e) {
 		String dificultadElegida = e.getActionCommand();
@@ -35,10 +38,4 @@ public class MenuController implements ISettingsObserver {
 	public void onLanguageChanged(LanguageEnum language) {
 		this.vista.updateTexts();
 	}
-
-	@Override
-	public void onDifficultChanged(DifficultEnum difficult) {
-		// No se necesita actualizar la vista en este caso, ya que el cambio de dificultad no afecta a los textos.
-	}
-	
 }
