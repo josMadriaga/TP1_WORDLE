@@ -73,6 +73,9 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	}
 
 	private int obtenerTiempoUsuario() {
+		if(this.fechaInicio == null) {
+			return 0;
+		}
 		LocalDateTime fechaFin = LocalDateTime.now();
 		Duration duracion = Duration.between(this.fechaInicio, fechaFin);
 		int tiempoUsuario = Math.toIntExact(duracion.toSeconds());

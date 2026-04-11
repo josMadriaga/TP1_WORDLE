@@ -12,22 +12,26 @@ public class MenuController implements ISettingsObserver {
 	private model.Setting modelo;
 	private view.MenuView vista;
 
-	public MenuController(model.Setting modelo, view.MenuView vista){
-		
-	    this.modelo = modelo;
-	    this.vista = vista;
+	public MenuController(model.Setting modelo, view.MenuView vista) {
 
-	    this.modelo.addObserver(this);
-	    this.vista.addDificultadListener(e -> cambiarDificultad(e));
-	    this.vista.addLanguageListener(e -> cambiarIdioma(e));
+		this.modelo = modelo;
+		this.vista = vista;
+
+		this.modelo.addObserver(this);
+		this.vista.addDificultadListener(e -> cambiarDificultad(e));
+		this.vista.addLanguageListener(e -> cambiarIdioma(e));
 	}
 
+	public void dispose() {
+		this.modelo.removeObserver(this);
+	}
 
 	public void cambiarDificultad(ActionEvent e) {
 		String dificultadElegida = e.getActionCommand();
 		DifficultEnum dificultad = DifficultEnum.valueOf(dificultadElegida);
 		modelo.updateDifficult(dificultad);
 	}
+
 	public void cambiarIdioma(ActionEvent e) {
 		String languageSelected = e.getActionCommand();
 		LanguageEnum language = LanguageEnum.valueOf(languageSelected);
