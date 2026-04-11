@@ -112,8 +112,8 @@ public class JuegoView extends JPanel {
 		});
 	}
 
-	private void updateTexts() {
-		ResourceBundle  rb = LanguageUtil.getBundle("juego");
+	public void updateTexts() {
+		ResourceBundle rb = LanguageUtil.getBundle("juego");
 		tglbtnSubmit.setText(rb.getString("btn.Confirm"));
 		lblError.setText(rb.getString("lblError"));
 		lblIntentos.setText(rb.getString("lblIntentos"));

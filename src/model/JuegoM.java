@@ -6,6 +6,7 @@ import java.util.Random;
 import utils.Observable;
 import events.IJuegoObserver;
 import utils.DifficultEnum;
+import utils.LanguageEnum;
 
 public class JuegoM extends Observable<IJuegoObserver> {
 	private String palabraSecreta;
@@ -17,8 +18,9 @@ public class JuegoM extends Observable<IJuegoObserver> {
 	private String VERDE = "#538d4e";
 	private LocalDateTime fechaInicio;
 
-	public JuegoM(DifficultEnum dificultad, int intentos) {
+	public JuegoM(DifficultEnum dificultad, LanguageEnum lenguaje, int intentos) {
 		
+		//Listas en ESPAÑOL
 		String[] facil = { "GATOS", "PERRO", "CASAS", "AUTOS", "AGUAS", "COCHE", "COLOR", "FELIZ", "ARBOL", "AMIGO",
 				"MESAS", "LIBRO", "LAPIZ", "NOCHE", "TARDE", "LUNAS", "SOLES", "RATON", "REINA", "FUEGO" };
 
@@ -28,11 +30,29 @@ public class JuegoM extends Observable<IJuegoObserver> {
 		String[] dificil = { "ZARZA", "ÑANDU", "AÑEJO", "QUIZA", "GNOMO", "YELMO", "XENON", "BOXEO", "KIWIS", "KAYAK",
 				"FLUOR", "EBANO", "PIZZA", "ZORRO", "VORAZ", "SAXOS", "JUEZA", "BAZAR", "BRUJA", "CHUZA" };
 
-		this.listaDePalabras = switch (dificultad) {
-		case EASY -> facil;
-		case NORMAL -> normal;
-		case HARD -> dificil;
-		};
+		//Listas en INGLES
+		String[] facilEN = { "APPLE", "WATER", "HOUSE", "MOUSE", "CHAIR", "TABLE", "CLOCK", "TRAIN", "PLANT", "GRASS", 
+				"BEACH", "RIVER", "MUSIC", "SOUND", "LIGHT", "NIGHT", "HEART", "SMILE", "HAPPY", "SEVEN" };
+		
+		String[] normalEN = { "BREAD", "JUICE", "KNIFE", "SPOON", "SUGAR", "FLOUR", "WHEAT", "GRAIN", "EARTH", "WORLD", 
+				"SPACE", "ALIEN", "GHOST", "MAGIC", "WITCH", "SPELL", "SWORD", "SHAPE", "ARMOR", "FRAME" };
+		
+		String[] dificilEN = { "AZURE", "BAZAR", "CIVIC", "CRUMB", "DIZZY", "DWARF", "FLUFF", "FUZZY", "GYPSY", "HAIKU", 
+				"JAZZY", "KAZOO", "KHAKI", "NYMPH", "PIZZA", "PLUMP", "QUEUE", "QUART", "TOPAZ", "ZEBRA" };
+		
+		if (lenguaje == LanguageEnum.SPANISH) {
+			this.listaDePalabras = switch (dificultad) {
+			case EASY -> facil;
+			case NORMAL -> normal;
+			case HARD -> dificil;
+			};
+		}else {
+			this.listaDePalabras = switch (dificultad) {
+			case EASY -> facilEN;
+			case NORMAL -> normalEN;
+			case HARD -> dificilEN;	
+			};
+		}
 
 		Random generadorAleatorio = new Random();
 		int indiceAleatorio = generadorAleatorio.nextInt(this.listaDePalabras.length);

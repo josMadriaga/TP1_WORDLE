@@ -1,46 +1,44 @@
 package controller;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import utils.DifficultEnum;
 import utils.LanguageEnum;
+import events.ISettingsObserver;
 
-public class MenuController {
+public class MenuController implements ISettingsObserver {
 	private model.Setting modelo;
 	private view.MenuView vista;
 
-	public MenuController(model.Setting modelo, view.MenuView vista) {
+	public MenuController(model.Setting modelo, view.MenuView vista){
 		
 	    this.modelo = modelo;
 	    this.vista = vista;
 
-	 
-	    this.vista.addDificultadListener(new DificultadListener());
-	    this.vista.addLanguageListener(new LanguageListener());
+	    this.modelo.addObserver(this);
+	    
+	    this.vista.addDificultadListener(e -> cambiarDificultad(e));
+	    this.vista.addLanguageListener(e -> cambiarIdioma(e));
 	}
 
-//TODO hay que implementar esto por Observers, revisar ejemplos actuales
-	public class DificultadListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			String dificultadElegida = e.getActionCommand();
-
-			//Castea el string a enum
-			DifficultEnum dificultad = DifficultEnum.valueOf(dificultadElegida);
-			System.out.println("Dificultad actualizada a: " + dificultad);
-			modelo.updateDifficult(dificultad);
-			
-		}
+	public void cambiarDificultad(ActionEvent e) {
+		String dificultadElegida = e.getActionCommand();
+		DifficultEnum dificultad = DifficultEnum.valueOf(dificultadElegida);
+		modelo.updateDifficult(dificultad);
 	}
-	public class LanguageListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			String languageSelected = e.getActionCommand();
-
-			LanguageEnum language = LanguageEnum.valueOf(languageSelected);
-
-			modelo.updateLanguage(language);
-
-		}
+	public void cambiarIdioma(ActionEvent e) {
+		String languageSelected = e.getActionCommand();
+		LanguageEnum language = LanguageEnum.valueOf(languageSelected);
+		modelo.updateLanguage(language);
 	}
+
+	@Override
+	public void onLanguageChanged(LanguageEnum language) {
+		this.vista.updateTexts();
+	}
+
+	@Override
+	public void onDifficultChanged(DifficultEnum difficult) {
+		// No se necesita actualizar la vista en este caso, ya que el cambio de dificultad no afecta a los textos.
+	}
+	
 }
