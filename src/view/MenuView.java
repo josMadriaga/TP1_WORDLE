@@ -62,6 +62,7 @@ public class MenuView extends JPanel {
 		add(labelLenguaje);
 		
 		rdbtnEspanol = new RadioButtonCustom("");
+		rdbtnEspanol.setSelected(true);
 		rdbtnEspanol.setActionCommand("SPANISH");	
 		rdbtnEspanol.setBounds(130, 220, 150, 30);
 
@@ -82,6 +83,7 @@ public class MenuView extends JPanel {
 		add(labelDificultad);
 		
 		rdbtnFacil = new RadioButtonCustom("");
+		rdbtnFacil.setSelected(true);
 		rdbtnFacil.setActionCommand("EASY");
 		rdbtnFacil.setBounds(350, 220, 150, 30);
 		
